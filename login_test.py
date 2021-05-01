@@ -4,15 +4,11 @@ import excelfunctions as xlc
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-#path="D:/ARCHIVOS/trabajo/rebeca/selenium_tester/datatest.xlsx"
-path=os.path.abspath("datatest.xlsx")
-driver_path=os.path.abspath("msedgedriver.exe")
-driver = webdriver.Edge(driver_path)
-
+path = os.path.abspath("datatest.xlsx")
+driver = xlc.start_webdriver()
 driver.get("http://localhost:3000/auth/login")
 driver.maximize_window()
 print(driver.title)
-
 rows=xlc.getrowcount(path,'login')
 #LOG IN---
 for r in range(2,rows+1):
