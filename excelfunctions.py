@@ -5,24 +5,29 @@ from selenium import webdriver
 
 def start_webdriver():
     print('Please use the latest versions of the browsers.')
-    print("Select the browser( that you have installed in your PC) to test:Chrome,Opera,Safari,Edge,Firefox")
+    print("Select the number of the browser( that you have installed in your PC) to test:")
+    print("Chrome->1")
+    print("Opera-2")
+    print("Safari->3")
+    print("Edge->4")
+    print("Firefox->5")
     input1 = input()
-    if (input1 == "Chrome") or (input1 == "chrome"):
+    if input1 == '1':
         print('please download the lastest version of Chrome webdriver')
         driver_path = os.path.abspath("chromedriver.exe")
         driver = webdriver.Chrome(executable_path=driver_path)
-    elif (input1 == "Opera") or (input1 == "opera"):
-        print('please download the lastest version of Safari webdriver')
+    elif input1 == '2':
+        print('please download the lastest version of Opera webdriver')
         driver_path = os.path.abspath("operadriver.exe")
         driver = webdriver.Opera(executable_path=driver_path)
-    elif (input1 == "Safari") or (input1 == "safari"):
+    elif input1 == '3':
         print('check if is active the development version in Safari')
         driver = webdriver.Safari()
-    elif (input1 == "Edge") or (input1 == "edge"):
+    elif input1 == '4':
         print('please download the lastest version of Edge webdriver')
         driver_path = os.path.abspath("msedgedriver.exe")
         driver = webdriver.Edge(driver_path)
-    elif (input1 == "Firefox") or (input1 == "firefox"):
+    elif input1 == '5':
         print('please download the lastest version of Geckodriver')
         driver_path = os.path.abspath("geckodriver.exe")
         driver = webdriver.Firefox(executable_path=driver_path)

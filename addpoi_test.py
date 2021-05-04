@@ -1,6 +1,7 @@
 import time
 import os
 import excelfunctions as xlc
+from datetime import date
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -11,6 +12,9 @@ driver.get("http://localhost:3000/auth/login")
 driver.maximize_window()
 rows=xlc.getrowcount(path,'poi-create')
 print(driver.title)
+#Test date---
+today = date.today()
+d1 = today.strftime("%d/%m/%Y")
 #LOG IN---
 msg="not logged"
 driver.find_element_by_id("login-form_email").send_keys('sergio.sotelo@eulerinnovations.com')
@@ -203,12 +207,14 @@ for r in range(3,rows+1):
             print(msg)
             xlc.writedata(path, 'poi-create', r, 25, 'success')
             xlc.writedata(path, 'poi-create', r, 26, '')
+            xlc.writedata(path, 'poi-create', r, 27, d1)
         pass
     except:
         value = driver.find_element_by_xpath("(//div[@role='alert'])[1]").get_attribute('innerHTML').strip()
         value = value[683:]
         value = value[:(len(value) - 53)]
         print('failed')
+        xlc.writedata(path, 'poi-create', r, 27,d1)
         xlc.writedata(path, 'poi-create', r, 25,'failed')
         if flag == 0:
             xlc.writedata(path, 'poi-create', r, 26, msg)

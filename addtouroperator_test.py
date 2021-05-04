@@ -1,6 +1,7 @@
 import time
 import os
 import excelfunctions as xlc
+from datetime import date
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -11,6 +12,9 @@ driver.get("http://localhost:3000/auth/login")
 driver.maximize_window()
 rows=xlc.getrowcount(path,'tourop-create')
 print(driver.title)
+#Test date---
+today = date.today()
+d1 = today.strftime("%d/%m/%Y")
 #Create tour operator---
 msg="not created"
 for r in range(3,rows+1):
@@ -121,12 +125,14 @@ for r in range(3,rows+1):
             print(msg)
             xlc.writedata(path, 'tourop-create', r, 21, 'success')
             xlc.writedata(path, 'tourop-create', r, 22, '')
+            xlc.writedata(path, 'tourop-create', r, 23, d1)
         pass
     except:
         value=driver.find_element_by_xpath("(//div[@role='alert'])[1]").get_attribute('innerHTML').strip()
         value=value[683:]
         value=value[:(len(value)-53)]
         print(value)
+        xlc.writedata(path, 'tourop-create', r, 23, d1)
         xlc.writedata(path, 'tourop-create', r, 21, 'failed')
         if flag == 0:
             xlc.writedata(path, 'tourop-create', r, 22, msg)

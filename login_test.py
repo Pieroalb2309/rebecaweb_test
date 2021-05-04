@@ -1,6 +1,7 @@
 import time
 import os
 import excelfunctions as xlc
+from datetime import  date
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -10,6 +11,9 @@ driver.get("http://localhost:3000/auth/login")
 driver.maximize_window()
 print(driver.title)
 rows=xlc.getrowcount(path,'login')
+#Test date---
+today = date.today()
+d1 = today.strftime("%d/%m/%Y")
 #LOG IN---
 for r in range(2,rows+1):
     username=xlc.readdata(path,'login',r,1)
@@ -24,6 +28,7 @@ for r in range(2,rows+1):
             print("success")
             xlc.writedata(path, 'login', r, 3, 'success')
             xlc.writedata(path, 'login', r, 4, "")
+            xlc.writedata(path, 'login', r, 5, d1)
         driver.find_element_by_id("navprofile").click()
         time.sleep(1)
         driver.find_element_by_xpath("//span[text()='Cerrar sesión']").click()
@@ -37,6 +42,7 @@ for r in range(2,rows+1):
         msg = driver.find_element_by_id("alert_msg").text
         xlc.writedata(path, 'login', r, 3, 'failed')
         xlc.writedata(path, 'login', r, 4, msg)
+        xlc.writedata(path, 'login', r, 5, d1)
 
         pass
 

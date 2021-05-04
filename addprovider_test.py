@@ -1,6 +1,7 @@
 import time
 import os
 import excelfunctions as xlc
+from datetime import date
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -9,8 +10,11 @@ driver = xlc.start_webdriver()
 
 driver.get("http://localhost:3000/auth/login")
 driver.maximize_window()
-rows=xlc.getrowcount(path,'tourop-create')
+rows=xlc.getrowcount(path,'providerx1-create')
 print(driver.title)
+#Test date---
+today = date.today()
+d1 = today.strftime("%d/%m/%Y")
 #LOG IN---
 msg="not logged"
 driver.find_element_by_id("login-form_email").send_keys('sergio.sotelo@eulerinnovations.com')
@@ -20,32 +24,32 @@ time.sleep(5)
 print("logged!!")
 #Create provider---
 for r in range(3,rows+1):
-    driver.find_element_by_xpath("//a[@href='/auth/register-3']").click()
-    time.sleep(1)
+    driver.find_element_by_xpath("(//button[text()=' Agregar'])[2]").click()
+    time.sleep(3)
     try:
         msg = "FORMULARIO NUMERO: " + str(r - 2)  #####################################################
         print(msg)
-        flag=0
-        company_name=xlc.readdata(path, 'tourop-create', r, 1)
-        company_mobile=xlc.readdata(path, 'tourop-create', r, 2)
-        descripcion=xlc.readdata(path, 'tourop-create', r, 3)
-        local_pais=xlc.readdata(path, 'tourop-create', r, 4)
-        local_estado=xlc.readdata(path, 'tourop-create', r, 5)
-        local_ciudad=xlc.readdata(path, 'tourop-create', r, 6)
-        cod_postal=xlc.readdata(path, 'tourop-create', r, 7)
-        direccion=xlc.readdata(path, 'tourop-create', r, 8)
-        cobertura_pais=xlc.readdata(path, 'tourop-create', r, 9)
-        cobertuda_estado=xlc.readdata(path, 'tourop-create', r, 10)
-        contact_nombre=xlc.readdata(path, 'tourop-create', r, 11)
-        contact_apellido=xlc.readdata(path, 'tourop-create', r, 12)
-        contact_correo=xlc.readdata(path, 'tourop-create', r, 13)
-        contact_mobile=xlc.readdata(path, 'tourop-create', r, 14)
-        mainuser_nombre=xlc.readdata(path, 'tourop-create', r, 15)
-        mainuser_apellido=xlc.readdata(path, 'tourop-create', r, 16)
-        mainuser_mobile=xlc.readdata(path, 'tourop-create', r, 17)
-        mainuser_email=xlc.readdata(path, 'tourop-create', r, 18)
-        mainsuser_pass=xlc.readdata(path, 'tourop-create', r, 19)
-        mainuser_confpass=xlc.readdata(path, 'tourop-create', r, 20)
+        flag = 0
+        company_name=xlc.readdata(path, 'provider-create', r, 1)
+        company_mobile=xlc.readdata(path, 'provider-create', r, 2)
+        descripcion=xlc.readdata(path, 'provider-create', r, 3)
+        local_pais=xlc.readdata(path, 'provider-create', r, 4)
+        local_estado=xlc.readdata(path, 'provider-create', r, 5)
+        local_ciudad=xlc.readdata(path, 'provider-create', r, 6)
+        cod_postal=xlc.readdata(path, 'provider-create', r, 7)
+        direccion=xlc.readdata(path, 'provider-create', r, 8)
+        cobertura_pais=xlc.readdata(path, 'provider-create', r, 9)
+        cobertuda_estado=xlc.readdata(path, 'provider-create', r, 10)
+        contact_nombre=xlc.readdata(path, 'provider-create', r, 11)
+        contact_apellido=xlc.readdata(path, 'provider-create', r, 12)
+        contact_correo=xlc.readdata(path, 'provider-create', r, 13)
+        contact_mobile=xlc.readdata(path, 'provider-create', r, 14)
+        mainuser_nombre=xlc.readdata(path, 'provider-create', r, 15)
+        mainuser_apellido=xlc.readdata(path, 'provider-create', r, 16)
+        mainuser_mobile=xlc.readdata(path, 'provider-create', r, 17)
+        mainuser_email=xlc.readdata(path, 'provider-create', r, 18)
+        mainsuser_pass=xlc.readdata(path, 'provider-create', r, 19)
+        mainuser_confpass=xlc.readdata(path, 'provider-create', r, 20)
         msg = "basic info"#####################################################
         print(msg)
         driver.find_element_by_id("register-form_company_name").send_keys(company_name)
@@ -125,19 +129,21 @@ for r in range(3,rows+1):
         if(driver.find_element_by_xpath("//a[@href='/auth/register-3']").is_displayed()==True):
             msg = "FORMULARIO LLENADO NUMERO: " + str(r - 2)  #####################################################
             print(msg)
-            xlc.writedata(path, 'tourop-create', r, 21, 'success')
-            xlc.writedata(path, 'tourop-create', r, 22, '')
+            xlc.writedata(path, 'provider-create', r, 21, 'success')
+            xlc.writedata(path, 'provider-create', r, 22, '')
+            xlc.writedata(path, 'provider-create', r, 23, d1)
         pass
     except:
         value=driver.find_element_by_xpath("(//div[@role='alert'])[1]").get_attribute('innerHTML').strip()
         value=value[683:]
         value=value[:(len(value)-53)]
         print(value)
-        xlc.writedata(path, 'tourop-create', r, 21, 'failed')
+        xlc.writedata(path, 'provider-create', r, 23, d1)
+        xlc.writedata(path, 'provider-create', r, 21, 'failed')
         if flag == 0:
-            xlc.writedata(path, 'tourop-create', r, 22, msg)
+            xlc.writedata(path, 'provider-create', r, 22, msg)
         else:
-            xlc.writedata(path, 'tourop-create', r, 22, value)
+            xlc.writedata(path, 'provider-create', r, 22, value)
         print('FAILED!!')
         driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.HOME)
         time.sleep(1)

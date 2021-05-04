@@ -1,6 +1,7 @@
 import time
 import os
 import excelfunctions as xlc
+from datetime import date
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -11,6 +12,9 @@ driver.get("http://localhost:3000/auth/login")
 driver.maximize_window()
 rows = xlc.getrowcount(path, 'accomm-create')
 print(driver.title)
+#Test date---
+today = date.today()
+d1 = today.strftime("%d/%m/%Y")
 #LOG IN---
 msg="not logged"
 driver.find_element_by_id("login-form_email").send_keys('sergio.sotelo@eulerinnovations.com')
@@ -262,6 +266,7 @@ for r in range(3,rows+1):
             print(msg)
             xlc.writedata(path, "accomm-create", r, 37, 'success')
             xlc.writedata(path, "accomm-create", r, 38, '')
+            xlc.writedata(path, "accomm-create", r, 39, d1)
         #driver.find_element_by_xpath("(//button[@type='button'])[1]").click()
 
         pass
@@ -271,6 +276,7 @@ for r in range(3,rows+1):
         #value = value[:(len(value) - 53)]
         # xlc.writedata(path, 'login', r, 3, msg)
         print('failed')
+        xlc.writedata(path, "accomm-create", r, 39, d1)
         xlc.writedata(path, "accomm-create", r, 37, 'failed')
         if flag == 0:
             xlc.writedata(path, "accomm-create", r, 38, msg)
