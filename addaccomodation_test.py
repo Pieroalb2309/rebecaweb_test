@@ -88,10 +88,10 @@ for r in range(3,rows+1):
         driver.find_element_by_id("register-form_cost").send_keys(str(costo))
         driver.find_element_by_id("register-form_activity_short_description-es").send_keys(sinopsis)
         #driver.find_element_by_xpath("(//button[text()='Traducción'])[1]").click()
-        time.sleep(10)
+        time.sleep(1)
         driver.find_element_by_id("register-form_activity_description-es").send_keys(descripcion)
         #driver.find_element_by_xpath("(//button[text()='Traducción'])[2]").click()
-        time.sleep(10)
+        time.sleep(1)
         driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.END)
         time.sleep(1)
         ##
@@ -155,14 +155,15 @@ for r in range(3,rows+1):
             time.sleep(1)
             driver.find_element_by_id("register-form_tips_0_title-es").send_keys(titulo)
             #driver.find_element_by_xpath("(//button[text()='Traducción'])["+str(cantidad)+"]").click()
-            time.sleep(5)
+            time.sleep(1)
             cantidad=cantidad+1
             driver.find_element_by_id("register-form_tips_0_message-es").send_keys(mensaje)
             #driver.find_element_by_xpath("(//button[text()='Traducción'])["+str(cantidad)+"]").click()
-            time.sleep(5)
+            time.sleep(1)
             driver.find_element_by_id("register-form_tips_0_type").click()
             time.sleep(1)
             driver.find_element_by_xpath("//div[text()='"+tipo+"']").click()
+            time.sleep(1)
             if notificacion == "Y":
                 driver.find_element_by_id("register-form_tips_0_is_push").click()
             driver.find_element_by_id("register-form_tips_0_frequency").click()
@@ -181,16 +182,17 @@ for r in range(3,rows+1):
             time.sleep(1)
             driver.find_element_by_id("register-form_recoms_0_title-es").sendKeys(titulo)
             #driver.find_element_by_xpath("(//button[text()='Traducción'])["+str(cantidad)+"]").click()
-            time.sleep(5)
+            time.sleep(1)
             cantidad=cantidad+1
             driver.find_element_by_id("register-form_recoms_0_message-es").click()
             time.sleep(1)
             driver.find_element_by_id("register-form_recoms_0_message-es").send_keys(mensaje)
             #driver.find_element_by_xpath("(//button[text()='Traducción'])["+str(cantidad)+"]").click()
-            time.sleep(5)
+            time.sleep(1)
             driver.find_element_by_id("register-form_recoms_0_type").click()
             time.sleep(1)
             driver.find_element_by_xpath("//div[text()='"+tipo+"']").click()
+            time.sleep(1)
             if notificacion == "Y":
                 driver.find_element_by_id("register-form_recoms_0_is_push").click()
             driver.find_element_by_id("register-form_recoms_0_frequency").click()
@@ -217,7 +219,7 @@ for r in range(3,rows+1):
             driver.find_element_by_id("register-form_questions_0_answer-es").click()
             driver.find_element_by_id("register-form_questions_0_answer-es").send_keys(respuesta)
             #driver.find_element_by_xpath("(//button[text()='Traducción'])[" + str(cantidad) + "]").click()
-            time.sleep(5)
+            time.sleep(1)
             driver.find_element_by_id("register-form_questions_0_video_ref").click()
             driver.find_element_by_id("register-form_questions_0_video_ref").send_keys(video_ref)
             #driver.find_element_by_xpath("(//div[@class='ant-select-item-option-content'])[4]").click()
@@ -243,30 +245,34 @@ for r in range(3,rows+1):
             driver.find_element_by_xpath("//div[text()='"+tipo_espacio+"']").click()
             time.sleep(1)
             driver.find_element_by_id("register-form_floors_0_spaces_0_space_description-es").send_keys(des_espacio)
+            time.sleep(1)
             driver.find_element_by_xpath("//button[text()='Agregar objeto']").click()
             time.sleep(1)
             if des_espacio != "":
                 driver.find_element_by_id("register-form_floors_0_spaces_0_items_0_description-es").send_keys(des_item)
+                time.sleep(1)
 
             driver.find_element_by_id("register-form_floors_0_spaces_0_items_0_entity").click()
             time.sleep(1)
             driver.find_element_by_xpath("//div[text()='"+tipo_item+"']").click()
+            time.sleep(1)
             driver.find_element_by_id("register-form_floors_0_spaces_0_items_0_quantity").send_keys(cant_item)
+            time.sleep(1)
             driver.find_element_by_id("register-form_floors_0_spaces_0_items_0_value").send_keys(str(precio_item))
-
+            time.sleep(1)
         ##
         driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.END)
         time.sleep(3)
         print("Subiendo....")
         driver.find_element_by_xpath("//button[text()='Enviar']").click()
         flag=1
-        time.sleep(15)
+        time.sleep(30)
         if (driver.find_element_by_xpath("//h2[text()='Servicios']").click() == True):
             msg = "FORMULARIO LLENADO NUMERO: " + str(r - 2)  #####################################################
             print(msg)
-            xlc.writedata(path, "accomm-create", r, 37, 'success')
-            xlc.writedata(path, "accomm-create", r, 38, '')
-            xlc.writedata(path, "accomm-create", r, 39, d1)
+            xlc.writedata(path, "accomm-create", r, 36, 'success')
+            xlc.writedata(path, "accomm-create", r, 37, '')
+            xlc.writedata(path, "accomm-create", r, 38, d1)
         #driver.find_element_by_xpath("(//button[@type='button'])[1]").click()
 
         pass
@@ -281,7 +287,7 @@ for r in range(3,rows+1):
         if flag == 0:
             xlc.writedata(path, "accomm-create", r, 38, msg)
         else:
-            xlc.writedata(path, "accomm-create", r, 38, '')
+            xlc.writedata(path, "accomm-create", r, 38, 'Selenium probl.')
         # 3 segundos para subir al inicio del formulario y click en el boton de regreso
         driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.HOME)
         time.sleep(3)
